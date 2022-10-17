@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <div class="section">
+        <h1> My account </h1>
+    </div>
+
+    <div class="section">
+        <h3> My Events </h3>
+        {% for event in user.events.all %}
+            <a href="{% url 'event' event.id %}"> {{ event.name }} </a>
+        {% endfor %}
+    </div>
+
+    <div>
+        <h3> My Submissions </h3>
+        {% for submission in user.submissions.all %}
+            <a href="{% url 'update-submission' submission.id %}"> {{ submission.event.name }} </a>
+        {% endfor %}
+    </div>
+
+{% endblock content %}
+
