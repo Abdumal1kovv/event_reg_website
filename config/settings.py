@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # external apps
     'whitenoise.runserver_nostatic',
-    'corsheaders'
+    'corsheaders',
 
     # my apps
     'base',

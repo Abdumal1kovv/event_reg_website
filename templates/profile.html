@@ -3,4 +3,12 @@
 {% block content %}
     <h1> {{ user.name }} </h1>
 
+    <div class="section">
+        <img class="avatar--sm" src="{{ user.avatar.url }}">
+    </div>
+
+    <div class="section">
+        <p> {{ user.bio }} </p>
+    </div>
+
 {% endblock content %}

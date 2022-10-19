@@ -15,10 +15,11 @@
                 </a>
             {% endfor %}
         </div>
+
     </section>
 
     <section>
-        <h3> Users </h3>
+        <h3> Users: {{ count_users }} </h3>
         <div class="users--lists section">
             {% for user in users %}
                 <a href="{% url 'profile' user.id %}">
@@ -27,6 +28,12 @@
                         <h4> {{ user.name }} </h4>
                     </div>
                 </a>
+            {% endfor %}
+        </div>
+
+        <div class="section paginator--wrapper">
+            {% for page in pages %}
+                <a class="btn btn--primary" href="?page={{ page }}"> {{ page }} </a>
             {% endfor %}
         </div>
 

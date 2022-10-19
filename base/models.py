@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 from django.contrib.auth.models import AbstractUser
 import uuid
+from django_resized import ResizedImageField
 
 
 class User(AbstractUser):
@@ -13,7 +14,7 @@ class User(AbstractUser):
 
     subscriber = models.BooleanField(default=True, null=True)
 
-    avatar = models.ImageField(default='avatar.png')
+    avatar = ResizedImageField(size=[300, 300], default='avatar.png')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']

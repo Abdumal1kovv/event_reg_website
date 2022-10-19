@@ -3,9 +3,13 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from .models import User, Event, Submission
-from .forms import SubmissionForm, CustomUserCreateForm
+from .forms import SubmissionForm, CustomUserCreateForm, UserForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from PIL import Image
+from django.contrib.auth.hashers import make_password
+from django.contrib import messages
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 def login_page(request):
@@ -16,13 +20,19 @@ def login_page(request):
 
         if user is not None:
             login(request, user)
+            messages.info(request, 'You have successfully logged in')
             return redirect('home')
+        else:
+            messages.error(request, 'Email or Password is incorrect')
+            return redirect('login')
 
     context = {'page': page}
     return render(request, 'login_register.html', context)
 
+
 def logout_page(request):
     logout(request)
+    messages.info(request, 'User was logged out!')
     return redirect('login')
 
 
@@ -34,19 +44,47 @@ def register_page(request):
         form = CustomUserCreateForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
+            user.username = user.username.lower()
             user.save()
-            login(request, user)
+            messages.success(request, 'User account was created!')
 
+            login(request, user)
+            messages.success(request, 'User account was created!')
             return redirect('home')
+        else:
+            messages.error(request, 'An error has occurred during registration')
 
     context = {'page': page, 'form': form}
     return render(request, 'login_register.html', context)
 
 
 def home_page(request):
+    limit = request.GET.get('limit')
+    if limit == None:
+        limit = 15
+
+    limit = int(limit)
+
     users = User.objects.filter(subscriber=True)
+    count_users = users.count()
+
+    page = request.GET.get('page')
+    paginator = Paginator(users, 2)
+
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        users = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        users = paginator.page(page)
+
+    pages = list(range(1, (paginator.num_pages + 1)))
+
+
     events = Event.objects.all()
-    context = {'users': users, 'events': events}
+    context = {'users': users, 'events': events, 'count_users': count_users, 'paginator': paginator, 'pages': pages}
     return render(request, 'home.html', context)
 
 
@@ -59,8 +97,60 @@ def user_page(request, pk):
 @login_required(login_url='login')
 def account_page(request):
     user = request.user
+
+    # img = user.avatar
+    # img = Image.open(user.avatar)
+    # new_size = (10, 10)
+    # img = img.resize(new_size)
+    #
+    # user.avatar = img
+    # user.save()
+
     context = {'user': user}
     return render(request, 'account.html', context)
+
+
+@login_required(login_url='login')
+def edit_account(request):
+    form = UserForm(instance=request.user)
+    if request.method == 'POST':
+        # img = Image.open(request.FILES.get('avatar'))
+        # new_size = (10, 10)
+        # img = img.resize(new_size)
+        # request.FILES['avatar'] = img
+        # img = Image.open(user.avatar)
+        # new_size = (10, 10)
+        # img = img.resize(new_size)
+
+        form = UserForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            user = form.save()
+            user.save()
+
+            return redirect('account')
+
+    context = {'form': form}
+    return render(request, 'user_form.html', context)
+
+
+@login_required(login_url='login')
+def change_password(request):
+    if request.method == 'POST':
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        if password1 == password2:
+            new_password = make_password(password1)
+            request.user.password = new_password
+            request.user.save()
+            messages.success(request, "Password was changed")
+            return redirect('account')
+        else:
+            messages.error(request, "Please, type same passwords for all fields!")
+            return redirect('change-password')
+
+    context = {}
+    return render(request, 'change_password.html', context)
 
 
 def event_page(request, pk):

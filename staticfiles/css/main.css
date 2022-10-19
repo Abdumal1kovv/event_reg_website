@@ -26,6 +26,10 @@
     text-decoration: none;
     background-color: rgb(204, 204, 204);
     color: black;
+    display: block;
+    width: fit-content;
+    margin: 10px;
+    border: none;
 }
 
 
@@ -37,9 +41,6 @@
 .btn--primary {
     background-color: steelblue;
     color: #fff;
-    display: block;
-    width: fit-content;
-    margin: 10px;
 }
 
 
@@ -95,11 +96,24 @@ nav a {
     border-radius: 25%;
 }
 
+.avatar--sm {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
 
 .users--lists {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 2em;
+}
+
+
+.paginator--wrapper {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 

@@ -3,13 +3,24 @@
 {% block content %}
 
     <div class="section">
+        <img class="avatar--sm" src="{{ user.avatar.url }}">
         <h1> My account </h1>
+
+        <a class="btn btn--primary" href="{% url 'edit-account' %}"> Edit Account </a>
+        <a class="btn btn--primary" href="{% url 'change-password' %}"> Reset Password </a>
+        <a class="btn btn--primary" href="{% url 'profile' user.id %}"> View Profile </a>
+
     </div>
+
 
     <div class="section">
         <h3> My Events </h3>
         {% for event in user.events.all %}
             <a href="{% url 'event' event.id %}"> {{ event.name }} </a>
+
+        {% empty %}
+            <p> You haven't registered for any events </p>
+
         {% endfor %}
     </div>
 
@@ -17,6 +28,9 @@
         <h3> My Submissions </h3>
         {% for submission in user.submissions.all %}
             <a href="{% url 'update-submission' submission.id %}"> {{ submission.event.name }} </a>
+
+        {% empty %}
+            <p> You haven't submitted any projects yet </p>
         {% endfor %}
     </div>
 
