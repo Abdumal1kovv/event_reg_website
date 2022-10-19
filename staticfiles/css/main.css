@@ -44,6 +44,21 @@
 }
 
 
+.success {
+    color: green;
+}
+
+.info {
+    color: #3aabd4;
+}
+
+.error {
+    color: #cc3300;
+}
+
+
+
+
 .container--main {
     width: 1200px;
     margin: 0 auto;
@@ -121,6 +136,25 @@ nav a {
 #event--action--wrapper {
     display: flex;
     flex-wrap: wrap;
+}
+
+/*Login Registration Styling*/
+.login-register--container {
+    max-width: 900px;
+    margin: 0 auto;
+    border: 1px rgb(218, 218, 218);
+    padding: 1em;
+    border-radius: 10px;
+}
+
+
+.form-field--wrapper {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+input {
+    width: 50%;
 }
 
 
