@@ -44,6 +44,12 @@
 }
 
 
+.btn--secondary {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #DEE4ED;
+}
+
 .success {
     color: green;
 }
@@ -55,8 +61,6 @@
 .error {
     color: #cc3300;
 }
-
-
 
 
 .container--main {
@@ -132,6 +136,11 @@ nav a {
 }
 
 
+#account--buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 /*Event page styling*/
 #event--action--wrapper {
     display: flex;
@@ -165,3 +174,23 @@ input {
 
 }
 
+
+@media (max-width: 800px) {
+    .users--lists {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+    .events--lists {
+        grid-template-columns: 1fr;
+    }
+
+
+    .users--lists {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+}

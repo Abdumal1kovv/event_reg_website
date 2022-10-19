@@ -14,6 +14,13 @@ class User(AbstractUser):
 
     subscriber = models.BooleanField(default=True, null=True)
 
+    social_linkedin = models.URLField(max_length=400, null=True, blank=True)
+    social_twitter = models.URLField(max_length=400, null=True, blank=True)
+    social_facebook = models.URLField(max_length=400, null=True, blank=True)
+    social_website = models.URLField(max_length=400, null=True, blank=True)
+    social_github = models.URLField(max_length=400, null=True, blank=True)
+
+
     avatar = ResizedImageField(size=[300, 300], default='avatar.png')
 
     USERNAME_FIELD = 'email'

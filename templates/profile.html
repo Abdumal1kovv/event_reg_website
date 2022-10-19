@@ -1,11 +1,44 @@
 {% extends 'main.html' %}
 
 {% block content %}
-    <h1> {{ user.name }} </h1>
 
     <div class="section">
         <img class="avatar--sm" src="{{ user.avatar.url }}">
+        <h1> {{ user.name }} </h1>
     </div>
+
+    <div class="section">
+        {% if user.social_linkedin %}
+            <div>
+                <a href="{{ user.social_linkedin }}" target="_blank"> Linkedin </a>
+            </div>
+        {% endif %}
+
+        {% if user.social_twitter %}
+            <div>
+                <a href="{{ user.social_twitter }}" target="_blank"> Twitter </a>
+            </div>
+        {% endif %}
+
+        {% if user.social_facebook %}
+            <div>
+                <a href="{{ user.social_facebook }}" target="_blank"> Facebook </a>
+            </div>
+        {% endif %}
+
+        {% if user.social_website %}
+            <div>
+                <a href="{{ user.social_website }}" target="_blank"> Website </a>
+            </div>
+        {% endif %}
+
+        {% if user.social_github %}
+            <div>
+                <a href="{{ user.social_github }}" target="_blank"> Github </a>
+            </div>
+        {% endif %}
+    </div>
+
 
     <div class="section">
         <p> {{ user.bio }} </p>

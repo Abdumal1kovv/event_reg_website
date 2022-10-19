@@ -6,19 +6,24 @@
         <h1> {{ event.name }} </h1>
     </div>
 
-    <div class="section" id="event--action--wrapper">
-        {% if registered %}
-            <p class="text--success"> You have already registered for this event || </p>
-        {% else %}
-            <a class="btn btn--primary" href="{% url 'register-confirm' event.id %}"> Register </a>
-        {% endif %}
+    {% if not past_deadline %}
+        <div class="section" id="event--action--wrapper">
+            {% if registered %}
+                <p class="text--success"> You have already registered for this event | </p>
+            {% else %}
+                <a class="btn btn--primary" href="{% url 'register-confirm' event.id %}"> Register </a>
+            {% endif %}
 
-        {% if submitted %}
-            <p class="text--success"> You have already submitted your project </p>
-        {% else %}
-            <a class="btn btn--primary" href="{% url 'project-submission' event.id %}"> Submit Project </a>
-        {% endif %}
-    </div>
+            {% if submitted %}
+                <p class="text--success"> | You have already submitted your project </p>
+            {% else %}
+                <a class="btn btn--primary" href="{% url 'project-submission' event.id %}"> Submit Project </a>
+            {% endif %}
+        </div>
+    {% else %}
+        <p> Registration closed for event </p>
+
+    {% endif %}
 
     <div class="section">
         <p> {{ event.description | linebreaks }} </p>

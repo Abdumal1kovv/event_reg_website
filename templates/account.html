@@ -6,10 +6,11 @@
         <img class="avatar--sm" src="{{ user.avatar.url }}">
         <h1> My account </h1>
 
-        <a class="btn btn--primary" href="{% url 'edit-account' %}"> Edit Account </a>
-        <a class="btn btn--primary" href="{% url 'change-password' %}"> Reset Password </a>
-        <a class="btn btn--primary" href="{% url 'profile' user.id %}"> View Profile </a>
-
+        <div id="account--buttons">
+            <a class="btn btn--secondary" href="{% url 'edit-account' %}"> Edit Account </a>
+            <a class="btn btn--secondary" href="{% url 'change-password' %}"> Reset Password </a>
+            <a class="btn btn--primary" href="{% url 'profile' user.id %}"> View Profile </a>
+        </div>
     </div>
 
 

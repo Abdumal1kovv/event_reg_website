@@ -10,6 +10,8 @@ from PIL import Image
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from datetime import datetime, timedelta
+
 
 
 def login_page(request):
@@ -69,7 +71,7 @@ def home_page(request):
     count_users = users.count()
 
     page = request.GET.get('page')
-    paginator = Paginator(users, 2)
+    paginator = Paginator(users, 35)
 
     try:
         users = paginator.page(page)
@@ -156,13 +158,17 @@ def change_password(request):
 def event_page(request, pk):
     event = Event.objects.get(id=pk)
 
+    present = datetime.now().timestamp()
+    deadline = event.registration_deadline.timestamp()
+    past_deadline = (present > deadline)
+
     registered = False
     submitted = False
 
     if request.user.is_authenticated:
         registered = request.user.events.filter(id=event.id).exists()
         submitted = Submission.objects.filter(participant=request.user, event=event).exists()
-    context = {'event': event, 'registered': registered, 'submitted': submitted}
+    context = {'event': event, 'past_deadline': past_deadline, 'registered': registered, 'submitted': submitted}
     return render(request, 'event.html', context)
 
 
