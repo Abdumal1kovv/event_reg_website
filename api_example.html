@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Events </title>
+</head>
+<body>
+
+<h1> Events </h1>
+
+<div id="events-container"></div>
+
+</body>
+
+<script>
+    let events_container = document.getElementById('events-container')
+
+    let get_events = async () => {
+        let response = await fetch('http://127.0.0.1:8000/api/events/')
+        let events = await response.json()
+
+        for (let i = 0; events.length > i; i++) {
+            let event = events[i]
+            let row = `<div>
+                            <h3>${event.name}</h3>
+                    </div>`
+
+            events_container.innerHTML += row
+        }
+    }
+
+    get_events()
+</script>
+
+
+</html>

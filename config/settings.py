@@ -41,9 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # external apps
+    'drf_yasg',
     'whitenoise.runserver_nostatic',
     'corsheaders',
-
+    'rest_framework',
     # my apps
     'base',
 ]
