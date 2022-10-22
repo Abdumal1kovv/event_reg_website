@@ -20,8 +20,10 @@ class User(AbstractUser):
     social_website = models.URLField(max_length=400, null=True, blank=True)
     social_github = models.URLField(max_length=400, null=True, blank=True)
 
-
     avatar = ResizedImageField(size=[300, 300], default='avatar.png')
+
+    class Meta:
+        ordering = ['id']
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']

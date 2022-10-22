@@ -21,11 +21,10 @@
 
         {% empty %}
             <p> You haven't registered for any events </p>
-
         {% endfor %}
     </div>
 
-    <div>
+    <div class="section">
         <h3> My Submissions </h3>
         {% for submission in user.submissions.all %}
             <a href="{% url 'update-submission' submission.id %}"> {{ submission.event.name }} </a>

@@ -22,13 +22,14 @@
 
 .btn {
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 4px;
     text-decoration: none;
-    background-color: rgb(204, 204, 204);
+    /*background-color: rgb(204, 204, 204);*/
     color: black;
     display: block;
     width: fit-content;
     margin: 10px;
+    background-color: white;
     border: none;
 }
 
@@ -39,7 +40,7 @@
 
 
 .btn--primary {
-    background-color: steelblue;
+    background-color: #000;
     color: #fff;
 }
 
@@ -190,7 +191,7 @@ input {
 
 
     .users--lists {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
     }
 
 }

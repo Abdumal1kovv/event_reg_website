@@ -10,9 +10,9 @@ from .serializers import EventSerializer
 @api_view(['GET'])
 def get_routes(request):
     routes = [
-        'GET /api',
-        'GET /api/events',
-        'GET /api/events/:id'
+        'GET /api/v1/',
+        'GET /api/events/v1/',
+        'GET /api/events/v1/:id/'
     ]
     return Response(routes)
 

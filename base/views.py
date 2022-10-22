@@ -61,17 +61,11 @@ def register_page(request):
 
 
 def home_page(request):
-    limit = request.GET.get('limit')
-    if limit == None:
-        limit = 15
-
-    limit = int(limit)
-
     users = User.objects.filter(subscriber=True)
     count_users = users.count()
 
     page = request.GET.get('page')
-    paginator = Paginator(users, 35)
+    paginator = Paginator(users, per_page=40)
 
     try:
         users = paginator.page(page)
@@ -81,6 +75,7 @@ def home_page(request):
     except EmptyPage:
         page = paginator.num_pages
         users = paginator.page(page)
+
 
     pages = list(range(1, (paginator.num_pages + 1)))
 
