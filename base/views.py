@@ -65,7 +65,7 @@ def home_page(request):
     count_users = users.count()
 
     page = request.GET.get('page')
-    paginator = Paginator(users, per_page=40)
+    paginator = Paginator(users, per_page=2)
 
     try:
         users = paginator.page(page)

@@ -3,8 +3,8 @@
 {% block content %}
     <form method="POST">
         {% csrf_token %}
-        <a href="{% url 'event' event.id %}"> Go Back </a>
-        <input type="submit" value="Confirm" />
+        <a class="section btn btn--secondary" href="{% url 'event' event.id %}"> Go Back </a>
+        <input class="btn btn--primary" type="submit" value="Confirm" />
     </form>
 
 
